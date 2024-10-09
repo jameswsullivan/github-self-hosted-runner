@@ -62,7 +62,7 @@ echo "##### INSTALLING \"${GITHUB_RUNNER_NAME}\" ACTIONS RUNNER COMPLETED #####"
 echo
 
 echo "#####"
-echo "Please switch the ENTRYPOINT script to ${ACTIONS_RUNNER_DIR}/entrypoint.sh"
+echo "Please switch the ENTRYPOINT script to ${ACTIONS_RUNNER_SCRIPTS_DIR}/entrypoint.sh"
 echo "and restart the pod to start the runner"
 echo "#####"
 echo

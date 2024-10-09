@@ -25,9 +25,6 @@ mkdir -p $HOME/.kube
 echo "${KUBECONFIG_CONTENT}" > $HOME/.kube/config
 echo
 
-cat $HOME/.kube/config
-
-echo
 echo "Done adding \"KubeConfig\" to \"$HOME/.kube/config\" ."
 echo
 
