@@ -1,5 +1,16 @@
 #!/bin/bash
 
+echo "Entering ${ACTIONS_RUNNER_DIR} ... "
+echo
+
+cd ${ACTIONS_RUNNER_DIR}
+
+echo 'Current working directory is ...'
+echo
+
+pwd
+
+echo
 echo "##### BEGIN INSTALLING \"${GITHUB_RUNNER_NAME}\" ACTIONS RUNNER #####"
 echo
 

@@ -22,11 +22,16 @@ e.g. :
 
 For repo `https://github.com/jameswsullivan/mysamplerepo` , the following information can be found under the `Download` and `Configure` sections :
 
+**Download**
 ```
 curl -o actions-runner-linux-x64-2.320.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.320.0/actions-runner-linux-x64-2.320.0.tar.gz
+```
 
+**Configure**
+```
 ./config.sh --url https://github.com/jameswsullivan/mysamplerepo --token ABCDEFGHIJKLMNOPQRSTUVWXYZABC
 ```
+
 
 The environment variables would then be configured as follows :
 

@@ -34,10 +34,10 @@ echo
 
 newgrp docker << EOF
 
-echo 'Starting the runner via "./run.sh &" : '
+echo "Starting the runner via \"${ACTIONS_RUNNER_DIR}/run.sh &\" : "
 echo
 
-./run.sh &
+${ACTIONS_RUNNER_DIR}/run.sh &
 
 EOF
 
