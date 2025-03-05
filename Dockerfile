@@ -20,9 +20,6 @@ ENV GITHUB_RUNNER_NAME=""
 ENV GITHUB_RUNNER_LABELS=""
 ENV GITHUB_RUNNER_WORK_FOLDER=""
 
-# Provide the content of the KubeConfig from your Kubernetes cluster :
-ENV KUBECONFIG_CONTENT=""
-
 # Intall basic packages :
 RUN apt-get update -y && \
     apt-get upgrade -y && \
@@ -44,16 +41,6 @@ RUN apt-get install -y libicu-dev jq docker.io && \
     usermod -aG sudo runner && \
     echo 'runner  ALL=(ALL)    NOPASSWD: ALL' >> /etc/sudoers
 
-# Install kubectl :
-RUN apt-get update -y && \
-    apt-get install -y apt-transport-https gnupg && \
-    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
-    chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
-    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list && \
-    chmod 644 /etc/apt/sources.list.d/kubernetes.list && \
-    apt-get update -y && \
-    apt-get install -y kubectl
-
 COPY ./entrypoint.sh ${ACTIONS_RUNNER_SCRIPTS_DIR}/entrypoint.sh
 COPY ./install-runner.sh ${ACTIONS_RUNNER_SCRIPTS_DIR}/install-runner.sh
 
@@ -63,3 +50,4 @@ RUN chmod +x ${ACTIONS_RUNNER_SCRIPTS_DIR}/entrypoint.sh && \
 USER ${RUNNER_USER_NAME}
 
 WORKDIR ${ACTIONS_RUNNER_DIR}
+
