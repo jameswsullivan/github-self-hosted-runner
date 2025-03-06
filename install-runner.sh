@@ -67,3 +67,5 @@ echo "and restart the pod to start the runner"
 echo "#####"
 echo
 
+tail -f /dev/null
+
