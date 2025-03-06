@@ -66,3 +66,4 @@ echo "Please switch the ENTRYPOINT script to ${ACTIONS_RUNNER_SCRIPTS_DIR}/entry
 echo "and restart the pod to start the runner"
 echo "#####"
 echo
+

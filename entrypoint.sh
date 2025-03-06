@@ -39,3 +39,4 @@ ${ACTIONS_RUNNER_DIR}/run.sh &
 EOF
 
 tail -f /dev/null
+

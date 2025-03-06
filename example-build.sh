@@ -32,3 +32,4 @@ docker system prune --force
 
 echo
 echo "Done removing image ${ACTIONS_RUNNER_IMAGE_FULL_TAG} ."
+

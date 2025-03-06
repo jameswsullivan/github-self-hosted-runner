@@ -1,15 +1,14 @@
-## Containerized Self-hosted GitHub Actions Runner
+## Containerized Self-hosted GitHub Actions Runner with kubectl
 
 ### Instructions
-
 
 #### Overview
 
 - My test environment is Rancher v2.8.5, but it should be able to run in any Docker/Kubernetes environment with minor configuration changes.
 - The actions-runner is built on `ubuntu:24.04` .
-- The actions-runner needs to be run in privileged mode.
+- The actions-runner needs to run in privileged mode.
 - A `bind mount` of `/var/run/docker.sock` is needed for the container to utilize the host/node's docker socket.
-- Your cluster's KubeConfig file is required for the actions-runner to interact with the deployments via `kubectl` . In our example, the KubeConfig file is obtained using a Rancher service account named `actionrunner_sa`.
+- Your cluster's KubeConfig file is required for the actions-runner to interact with the deployments via `kubectl` .
 - If you wish to persist your installation, a persistent volume can be mounted to the `ACTIONS_RUNNER_DIR="/opt/actions-runner"` path.
 - The installation and entrypoint scripts are under the `ACTIONS_RUNNER_SCRIPTS_DIR="/opt/actions-runner-scripts"` directory.
 
@@ -21,9 +20,9 @@
 
 #### Configurations
 
-The following environment variables should be supplied. These information could be found from:
+The following environment variables should be supplied. This information can be found at:
 
-Your GitHub Repo --> Settings --> Actions --> Runners --> New self-hosted runner --> Choose Linux
+Your GitHub Repo --> Settings --> Actions --> Runners --> New self-hosted runner --> Linux
 
 e.g. :
 
@@ -61,3 +60,4 @@ KUBECONFIG_CONTENT="<CONTENT_FROM_YOUR_KUBECONFIG_FILE>"
 Using Rancher/Kubernetes as an example:
 - upon first startup, run the container with `CMD ["tail", "-f", "/dev/null"]` and run the `${ACTIONS_RUNNER_SCRIPTS_DIR}/install-runner.sh` script manually to install and configure the actions-runner. Or run the container using `CMD ["sh", "-c", "/opt/actions-runner-scripts/install-runner.sh"]` .
 - after the runner has been configured, change the ENTRYPOINT/CMD to `CMD ["sh", "-c", "/opt/actions-runner-scripts/entrypoint.sh"]` to start the runner.
+

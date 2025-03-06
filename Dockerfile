@@ -26,7 +26,7 @@ ENV KUBECONFIG_CONTENT=""
 # Intall basic packages :
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y wget nano curl unzip tzdata locales ca-certificates sudo && \
+    apt-get install -y wget vim nano git curl unzip tzdata locales ca-certificates sudo && \
     apt-get upgrade ca-certificates -y && \
     apt-get install -y iputils-ping iproute2 net-tools && \
     ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime && \
