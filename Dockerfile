@@ -23,7 +23,7 @@ ENV GITHUB_RUNNER_WORK_FOLDER=""
 # Intall basic packages :
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y wget nano vim curl git unzip tzdata locales ca-certificates sudo && \
+    apt-get install -y wget nano vim curl git unzip tzdata locales ca-certificates sudo tree && \
     apt-get upgrade ca-certificates -y && \
     apt-get install -y iputils-ping iproute2 net-tools && \
     ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime && \
