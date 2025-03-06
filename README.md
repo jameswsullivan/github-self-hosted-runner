@@ -49,3 +49,6 @@ Using Rancher/Kubernetes as an example:
 - upon first startup, run the container with `CMD ["tail", "-f", "/dev/null"]` and run the `${ACTIONS_RUNNER_SCRIPTS_DIR}/install-runner.sh` script manually to install and configure the actions-runner. Or run the container using `CMD ["sh", "-c", "/opt/actions-runner-scripts/install-runner.sh"]` .
 - after the runner has been configured, change the ENTRYPOINT/CMD to `CMD ["sh", "-c", "/opt/actions-runner-scripts/entrypoint.sh"]` to start the runner.
 
+#### Note
+- A persistent volume can be mounted at `/opt/actions-runner` to persist file changes, and has to be writable by user `runner` or `3001` .
+
