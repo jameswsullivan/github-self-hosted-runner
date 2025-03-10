@@ -26,7 +26,7 @@ ENV KUBECONFIG_CONTENT=""
 # Intall basic packages :
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y wget vim nano git curl unzip tzdata locales ca-certificates sudo && \
+    apt-get install -y wget vim nano git curl zip unzip tzdata locales ca-certificates sudo tree && \
     apt-get upgrade ca-certificates -y && \
     apt-get install -y iputils-ping iproute2 net-tools && \
     ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime && \
@@ -34,7 +34,8 @@ RUN apt-get update -y && \
     update-locale LANG=en_US.UTF-8
 
 # Configure actions-runner :
-RUN apt-get install -y libicu-dev jq docker.io && \
+RUN apt-get install -y libicu-dev jq docker.io npm yarnpkg openjdk-21-jdk maven && \
+    ln -s /usr/bin/yarnpkg /usr/bin/yarn && \
     mkdir ${ACTIONS_RUNNER_DIR} && \
     mkdir ${ACTIONS_RUNNER_SCRIPTS_DIR} && \
     groupadd --non-unique -g ${RUNNER_USER_ID} ${RUNNER_USER_NAME} && \
