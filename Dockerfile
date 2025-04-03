@@ -23,15 +23,15 @@ ENV GITHUB_RUNNER_WORK_FOLDER=""
 # Intall basic packages :
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y wget nano vim curl git unzip tzdata locales ca-certificates sudo tree && \
-    apt-get upgrade ca-certificates -y && \
-    apt-get install -y iputils-ping iproute2 net-tools && \
+    apt-get install -y wget nano vim curl git zip unzip tzdata locales ca-certificates sudo tree && \
+    update-ca-certificates && \
+    apt-get install -y iputils-ping iproute2 net-tools dnsutils && \
     ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
 
 # Configure actions-runner :
-RUN apt-get install -y libicu-dev maven openjdk-21-jdk jq && \
+RUN apt-get install -y libicu-dev jq && \
     mkdir ${ACTIONS_RUNNER_DIR} && \
     mkdir ${ACTIONS_RUNNER_SCRIPTS_DIR} && \
     groupadd --non-unique -g ${RUNNER_USER_ID} ${RUNNER_USER_NAME} && \
