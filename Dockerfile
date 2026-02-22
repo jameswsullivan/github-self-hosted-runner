@@ -35,7 +35,8 @@ RUN apt-get update -y && \
 # Install msmtp:
 COPY ./msmtprc /etc/msmtprc
 
-RUN apt-get install --no-install-recommends -y msmtp && \
+RUN apt-get update -y && \
+    apt-get install --no-install-recommends -y msmtp && \
     rm -rf /var/lib/apt/lists/*
 
 # Install docker and configure actions-runner :

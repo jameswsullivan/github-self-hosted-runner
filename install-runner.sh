@@ -24,7 +24,8 @@ echo
 curl -o ${ACTIONS_RUNNER_INSTALL_FILENAME} -L ${ACTIONS_RUNNER_DOWNLOAD_URL}
 
 echo
-echo "Downloading completed ... begin unpacking the package ... "
+echo "Downloading \"${ACTIONS_RUNNER_INSTALL_FILENAME}\" completed ... "
+echo "Begin unpacking the package ... "
 echo
 
 tar xzf ./${ACTIONS_RUNNER_INSTALL_FILENAME}
