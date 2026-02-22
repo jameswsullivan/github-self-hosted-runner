@@ -20,7 +20,7 @@ ENV LANG="en_US.UTF-8"
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y tzdata locales ca-certificates && \
-    apt-get upgrade ca-certificates -y && \
+    update-ca-certificates && \
     ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8 && \
@@ -83,6 +83,8 @@ RUN if [ "${OPT_NODE}" = "true" ]; then \
 
 # Install trivy:
 RUN if [ "${OPT_TRIVY}" = "true" ]; then \
+        apt-get update -y && \
+        apt-get install --no-install-recommends -y gnupg && \
         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | \
         gpg --dearmor | tee /usr/share/keyrings/trivy.gpg > /dev/null && \
         echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | \
