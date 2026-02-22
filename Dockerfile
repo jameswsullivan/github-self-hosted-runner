@@ -16,6 +16,11 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV LC_ALL="en_US.UTF-8"
 ENV LANG="en_US.UTF-8"
 
+ENV DOCKER_HOST=${DOCKER_HOST}
+ENV DOCKER_BUILDKIT=${DOCKER_BUILDKIT}
+ENV ACTIONS_RUNNER_DIR=${ACTIONS_RUNNER_DIR}
+ENV OPT_INIT_SCRIPTS_DIR=${OPT_INIT_SCRIPTS_DIR}
+
 # Intall basic packages :
 RUN apt-get update -y && \
     apt-get upgrade -y && \

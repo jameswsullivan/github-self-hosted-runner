@@ -4,16 +4,12 @@ Generic self-hosted GitHub Actions Runner + Docker-in-Docker (DinD) suitable for
 - building docker images
 - running trivy scans
 - managing Kubernetes clusters with kubectl
-- CI/CD pipelines (with email notifications)
-
+- CI/CD pipelines
+- sending email notifications via msmtp
 
 ### Docker Deployment
 
-#### Use Pre-built Image (built with default settings set in `example.env`)
-- [https://hub.docker.com/r/jameswsullivan/github-self-hosted-runner](https://hub.docker.com/r/jameswsullivan/github-self-hosted-runner)
-- `docker pull jameswsullivan/github-self-hosted-runner:latest`
-
-#### Built Your Custom Image
+#### Run with Your Custom Settings
 
 Create a `.env` from `example.env` and supply the following information as follows:
 
@@ -83,6 +79,35 @@ GITHUB_RUNNER_WORK_FOLDER=
 ```
 
 Note: Use single quotes as needed if any values contain special characters such as `$` and `#`.
+
+Finally, run with `docker compose up -d`.
+
+#### Use Pre-built Image
+- [https://hub.docker.com/r/jameswsullivan/github-self-hosted-runner](https://hub.docker.com/r/jameswsullivan/github-self-hosted-runner)
+- `docker pull jameswsullivan/github-self-hosted-runner:latest`
+
+`latest` image is built with default settings set in `example.env`, simply create a `.env` from `example.env`, add your runtime ENVs and run with `docker compose up -d` .
+
+#### Mount Custom Init Scripts
+
+Modify `compose.yaml` and mount custom init scripts under `OPT_INIT_SCRIPTS_DIR=/opt/init.d`:
+```
+...
+actions-runner:
+    ...
+    volumes:
+        - actions-runner:${ACTIONS_RUNNER_DIR}
+        - docker-sock:/var/run
+        - ./my-custom-init-script.sh:${OPT_INIT_SCRIPTS_DIR}/my-custom-init-script.sh
+    ...
+...
+```
+
+#### Send Email with msmtp
+
+```
+printf "%s\n" "${YOUR_EMAIL_BODY}" | msmtp "${MSMTP_NOTIF_EMAIL_TO}"
+```
 
 ### Kubernetes Deployment
 
