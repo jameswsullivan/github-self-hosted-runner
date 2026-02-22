@@ -1,0 +1,77 @@
+## Actions Runner + Docker-in-Docker
+
+
+Generic self-hosted GitHub Actions Runner + Docker-in-Docker (DinD) suitable for:
+- building docker images
+- running trivy scans
+- managing Kubernetes clusters with kubectl
+- CI/CD pipelines (with email notifications)
+
+
+### Docker Deployment
+
+Create a `.env` from `example.env` and supply the following information as follows:
+
+For build args:
+```
+ACTIONS_RUNNER_IMAGE_TAG=johndoe/github-self-hosted-runner:docker-in-docker
+UBUNTU_VERSION=25.10
+RUNNER_USER_ID=3001
+RUNNER_USER_NAME=runner
+ACTIONS_RUNNER_DIR=/opt/actions-runner
+```
+`ACTIONS_RUNNER_DIR` is also created as an ENV for ease of use.
+
+For environment variables:
+```
+SMTP_RELAY=my-smtp-relay.mydomain.com
+SMTP_PORT=25
+MSMTP_LOG_PATH=/mnt/logs/msmtp.log
+MSMTP_NOTIF_EMAIL_FROM=noreply@mydomain.com
+MSMTP_NOTIF_EMAIL_TO=notifications@mydomain.com
+```
+
+Set the following environment variables using information from GitHub repository's `Settings - Code and automation - Actions - Runners - New self-hosted runner - Runner image - Linux - Download/Configure` sections:
+
+```
+e.g.
+
+Download
+
+# Create a folder
+$ mkdir actions-runner && cd actions-runner# Download the latest runner package
+$ curl -o actions-runner-linux-x64-2.331.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.331.0/actions-runner-linux-x64-2.331.0.tar.gz
+# Optional: Validate the hash
+$ echo "5fcc01bd546ba5c3f1291c2803658ebd3cedb3836489eda3be357d41bfcf28a7  actions-runner-linux-x64-2.331.0.tar.gz" | shasum -a 256 -c
+# Extract the installer
+$ tar xzf ./actions-runner-linux-x64-2.331.0.tar.gz
+
+Configure
+
+# Create the runner and start the configuration experience
+$ ./config.sh --url https://github.com/johndoe/myrepo --token ABCDEFGHIJ1KLMN2OP3QRS4TU5VWX
+# Last step, run it!
+$ ./run.sh
+```
+
+Map the information from above as follows:
+
+```
+GITHUB_REPO_URL=https://github.com/johndoe/myrepo
+GITHUB_REPO_TOKEN='ABCDEFGHIJ1KLMN2OP3QRS4TU5VWX'
+ACTIONS_RUNNER_INSTALL_FILENAME=actions-runner-linux-x64-2.331.0.tar.gz
+ACTIONS_RUNNER_DOWNLOAD_URL=https://github.com/actions/runner/releases/download/v2.331.0/actions-runner-linux-x64-2.331.0.tar.gz
+
+GITHUB_RUNNER_GROUP=
+GITHUB_RUNNER_NAME=my-runner
+GITHUB_RUNNER_LABELS=
+GITHUB_RUNNER_WORK_FOLDER=
+```
+
+Note: Use single quotes as needed if any values contain special characters such as `$` and `#`.
+
+### Kubernetes Deployment
+
+Helm Chart coming soon ...
+
+

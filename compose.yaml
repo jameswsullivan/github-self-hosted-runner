@@ -1,0 +1,69 @@
+name: github-actions-runner
+
+services:
+
+  actions-runner:
+    container_name: actions-runner
+    image: ${ACTIONS_RUNNER_IMAGE_TAG}
+    build:
+      context: .
+      args:
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+        - RUNNER_USER_ID=${RUNNER_USER_ID}
+        - RUNNER_USER_NAME=${RUNNER_USER_NAME}
+        - ACTIONS_RUNNER_DIR=${ACTIONS_RUNNER_DIR}
+    environment:
+      DOCKER_HOST: ${DOCKER_HOST}
+      DOCKER_BUILDKIT: ${DOCKER_BUILDKIT}
+      ACTIONS_RUNNER_DIR: ${ACTIONS_RUNNER_DIR}
+      SMTP_RELAY: ${SMTP_RELAY}
+      SMTP_PORT: ${SMTP_PORT}
+      MSMTP_LOG_PATH: ${MSMTP_LOG_PATH}
+      MSMTP_NOTIF_EMAIL_FROM: ${MSMTP_NOTIF_EMAIL_FROM}
+      MSMTP_NOTIF_EMAIL_TO: ${MSMTP_NOTIF_EMAIL_TO}
+      GITHUB_REPO_URL: ${GITHUB_REPO_URL}
+      GITHUB_REPO_TOKEN: ${GITHUB_REPO_TOKEN}
+      ACTIONS_RUNNER_INSTALL_FILENAME: ${ACTIONS_RUNNER_INSTALL_FILENAME}
+      ACTIONS_RUNNER_DOWNLOAD_URL: ${ACTIONS_RUNNER_DOWNLOAD_URL}
+      GITHUB_RUNNER_GROUP: ${GITHUB_RUNNER_GROUP}
+      GITHUB_RUNNER_NAME: ${GITHUB_RUNNER_NAME}
+      GITHUB_RUNNER_LABELS: ${GITHUB_RUNNER_LABELS}
+      GITHUB_RUNNER_WORK_FOLDER: ${GITHUB_RUNNER_WORK_FOLDER}
+    working_dir: ${ACTIONS_RUNNER_DIR}
+    networks:
+      - actions-runner
+    volumes:
+      - actions-runner:${ACTIONS_RUNNER_DIR}
+      - docker-sock:/var/run
+    command: ["entrypoint.sh"]
+
+  docker:
+    container_name: docker
+    image: docker:latest
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: ${DOCKER_TLS_CERTDIR}
+      DOCKER_DRIVER: ${DOCKER_DRIVER}
+    command:
+      - dockerd
+      - --mtu=${DOCKERD_MTU}
+      - --group=${RUNNER_USER_ID}
+    volumes:
+      - docker-data:/var/lib/docker
+      - docker-sock:/var/run
+    networks:
+      - actions-runner
+
+volumes:
+  actions-runner:
+    driver: local
+  docker-data:
+    driver: local
+  docker-sock:
+    driver: local
+
+networks:
+  actions-runner:
+    driver: bridge
+
+
