@@ -9,6 +9,12 @@ Generic self-hosted GitHub Actions Runner + Docker-in-Docker (DinD) suitable for
 
 ### Docker Deployment
 
+#### Use Pre-built Image (built with default settings set in `example.env`)
+- [https://hub.docker.com/r/jameswsullivan/github-self-hosted-runner](https://hub.docker.com/r/jameswsullivan/github-self-hosted-runner)
+- `docker pull jameswsullivan/github-self-hosted-runner:latest`
+
+#### Built Your Custom Image
+
 Create a `.env` from `example.env` and supply the following information as follows:
 
 For build args:
