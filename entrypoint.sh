@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Initialize msmtprc:
 echo
 echo "Configuring msmtprc ... "
 echo
@@ -18,10 +19,21 @@ echo
 echo "Configuring msmtprc completed."
 echo
 
-if [ ! -f ".runner" ]; then
-    
-    install-runner.sh
+# Run optional init scripts:
+if [ -n "${OPT_INIT_SCRIPTS_DIR}" ] && [ -d "${OPT_INIT_SCRIPTS_DIR}" ]; then
+  for f in "${OPT_INIT_SCRIPTS_DIR}"/*.sh; do
+    [ -e "${f}" ] || continue
+    echo "Running custom init script: ${f}"
+    sudo chmod +x "${f}"
+    "${f}"
+    echo "\"${f}\" completed."
+    echo
+  done
+fi
 
+# Start runner:
+if [ ! -f ".runner" ]; then
+    install-runner.sh
 else
     echo "Runner already installed, starting runner ... "
 fi

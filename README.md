@@ -1,6 +1,5 @@
 ## Actions Runner + Docker-in-Docker
 
-
 Generic self-hosted GitHub Actions Runner + Docker-in-Docker (DinD) suitable for:
 - building docker images
 - running trivy scans
@@ -19,8 +18,17 @@ UBUNTU_VERSION=25.10
 RUNNER_USER_ID=3001
 RUNNER_USER_NAME=runner
 ACTIONS_RUNNER_DIR=/opt/actions-runner
+OPT_INIT_SCRIPTS_DIR=/opt/init.d
+OPT_PACKAGES="nano git unzip jq"
+OPT_KUBECTL=true
+OPT_TRIVY=true
+OPT_NODE=false
+FORCE_IPV4=true
 ```
-`ACTIONS_RUNNER_DIR` is also created as an ENV for ease of use.
+- `ACTIONS_RUNNER_DIR` and `OPT_INIT_SCRIPTS_DIR` are also created as ENVs for ease of use.
+- Mount of add custom init scripts into `OPT_INIT_SCRIPTS_DIR` for entrypoint script to pick up.
+- Extend `OPT_PACKAGES` to install additional packages.
+- Setting `OPT_NODE` to `true` will install `node 24 LTS`.
 
 For environment variables:
 ```
