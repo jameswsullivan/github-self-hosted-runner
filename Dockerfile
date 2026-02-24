@@ -78,7 +78,7 @@ RUN if [ "${FORCE_IPV4}" = "true" ]; then \
     fi
 
 # Install latest kubectl :
-RUN if [ "${OPT_NODE}" = "true" ]; then \
+RUN if [ "${OPT_KUBECTL}" = "true" ]; then \
         apt-get update -y && \
         apt-get install --no-install-recommends -y apt-transport-https gnupg && \
         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
