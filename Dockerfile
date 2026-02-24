@@ -34,7 +34,7 @@ RUN apt-get update -y && \
 # Install additional packages:
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y wget curl sudo \
-    ${ADDITIONAL_PACKAGES} && \
+    ${OPT_PACKAGES} && \
     rm -rf /var/lib/apt/lists/*
 
 # Install msmtp:
